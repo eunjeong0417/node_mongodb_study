@@ -4,10 +4,11 @@ const app = express()
 //express로 app을 만든다
 const port = 4000
 //port는 5000으로 설정
-const { User } = require("./models/User")
+const { User } = require("./models/User");
 const bodyParser = require('body-parser');
 //bodyParser는 client에서 받아온 정보를
 //서버에서 분석할 수 있도록 해준다
+const config = require('./config/key');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 //application/x-www.form-urlencoded
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://eunjeong:abcd1234@node2.s7g4b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
     }).then(() => console.log('mongoDB Connected'))
     //db연결 성공
