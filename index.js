@@ -26,7 +26,7 @@ mongoose.connect(config.mongoURI, {
     //에러 발생할경우
 
 app.get('/', (req, res) => {
-  res.send('Hello! 안녕하세요')
+  res.send('Hello! g')
 })
 
 
