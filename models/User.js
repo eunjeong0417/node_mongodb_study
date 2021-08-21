@@ -50,8 +50,20 @@ userSchema.pre('save', function (next) {
             next()
         })
     })
+    } else {
+        next()                                 
     }
 })
+
+userSchema.methods.comparePassword = function (plainPassword, cb) {
+    //plainpassword를 db에 있는 암호화된
+    //패스워드와 비교하기 위해서는
+    //plainpassword를 암호화해서 비교해야함
+    bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch)
+    })
+}
 
 //mongoose model로 schema를 감싸준다
 const User = mongoose.model('User', userSchema)

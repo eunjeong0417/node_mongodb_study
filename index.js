@@ -47,6 +47,37 @@ app.post('/register', (req, res) => {
 })
 
 
+app.post('/login', (req, res) => {
+  //요청된 이메일을 데이터베이스에서 찾는다
+  //몽고디비 메소드인 findOne 사용
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (!user) {
+      return res.json({
+        loginSuccess: false,
+        message:"이메일이 일치하지 않습니다."
+      })
+    }  //데이터베이스에 이메일이 있다면
+  //비밀번호가 일치하는지 확인
+    user.comparePassword(req.body.password, (err, isMatch))
+    if (!isMatch)
+      return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." })
+    
+    user.generateToken((err, user) => {
+      
+    })
+
+  })
+
+
+
+
+
+
+  //비밀번호까지 맞다면
+  //user token 생성
+})
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
