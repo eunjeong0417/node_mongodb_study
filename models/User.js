@@ -36,4 +36,4 @@ const userSchema = mongoose.Schema({
 //mongoose model로 schema를 감싸준다
 const User = mongoose.model('User', userSchema)
 module.exports = { User }
-//module exports까지 완료
+//module exports

@@ -6,16 +6,17 @@ const port = 4000
 //port는 5000으로 설정
 const { User } = require("./models/User")
 const bodyParser = require('body-parser');
-
 //bodyParser는 client에서 받아온 정보를
 //서버에서 분석할 수 있도록 해준다
 
 app.use(bodyParser.urlencoded({ extended: true }));
 //application/x-www.form-urlencoded
+//클라이언트에서 받아온 form parsing
 app.use(bodyParser.json());
 //application/json
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 mongoose.connect('mongodb+srv://eunjeong:abcd1234@node2.s7g4b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
     }).then(() => console.log('mongoDB Connected'))
@@ -43,8 +44,6 @@ app.post('/register', (req, res) => {
     })
     
 })
-
-
 
 
 app.listen(port, () => {
