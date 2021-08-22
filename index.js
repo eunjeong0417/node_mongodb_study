@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 //서버에서 분석할 수 있도록 해준다
 const config = require('./config/key');
 const cookieParser = require('cookie-parser');
+const { auth } = require('./middleware/auth');
 
 
 
@@ -37,7 +38,7 @@ app.get('/', (req, res) => {
 
 
 //회원가입 페이지 만들기
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     //회원가입시 필요한 정보를
     //데이터 베이스에 저장
     const user = new User(req.body)
@@ -56,7 +57,7 @@ app.post('/register', (req, res) => {
 })
 
 
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
   //요청된 이메일을 데이터베이스에서 찾는다
   //몽고디비 메소드인 findOne 사용
   User.findOne({ email: req.body.email }, (err, user) => {
@@ -87,14 +88,21 @@ app.post('/login', (req, res) => {
     
 
   })
+})
 
+app.get('/api/users/auth', auth, (req, res) => {
+  //authentication 통과
 
-
-
-
-
-  //비밀번호까지 맞다면
-  //user token 생성
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image:req.user.image
+  })
 })
 
 
