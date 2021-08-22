@@ -33,7 +33,7 @@ mongoose.connect(config.mongoURI, {
     //에러 발생할경우
 
 app.get('/', (req, res) => {
-  res.send('Hello! g')
+  res.send('Hello! ')
 })
 
 
@@ -102,6 +102,20 @@ app.get('/api/users/auth', auth, (req, res) => {
     lastname: req.user.lastname,
     role: req.user.role,
     image:req.user.image
+  })
+})
+
+
+app.get('/api/users/logout', auth, (req, res) => {
+  //findOneAndUpdate사용해서
+  //유저를 찾고 업데이트 시켜준다
+
+
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({
+      success:true
+    })
   })
 })
 
