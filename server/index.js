@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
   res.send('Hello! ')
 })
 
+app.get('/api/hello', (req, res) => {
+  res.send("hello 여기는 서버")
+})
+
 
 //회원가입 페이지 만들기
 app.post('/api/users/register', (req, res) => {
