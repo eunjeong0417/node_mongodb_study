@@ -9,7 +9,7 @@ function LandingPage() {
 
     return (
         <div>
-            landing랜딩페이지
+            <h2>시작페이지</h2>
         </div>
     )
 }
